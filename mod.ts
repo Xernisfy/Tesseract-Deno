@@ -93,7 +93,7 @@ export async function recognize(
   args.push(options.output ?? "stdout");
 
   if (typeof options.lang === "string")
-    args.push(`-l="${options.lang.replaceAll('"', '\\"')}"`);
+    args.push(`-l`, options.lang.replaceAll('"', '\\"'));
   if (typeof options.tessdata === "string")
     args.push(`--tessdata-dir="${options.tessdata.replaceAll('"', '\\"')}"`);
   if (typeof options.psm === "number") {
@@ -104,7 +104,7 @@ export async function recognize(
   if (typeof options.oem === "number") {
     if (options.oem < 0 || options.oem > 3)
       throw new Error(`Invalid OEM: ${options.oem}. Must be between 0-3`);
-    args.push(`--oem ${options.oem}`);
+    args.push(`--oem`, options.oem);
   }
   if (typeof options.dpi === "number") args.push(`--dpi ${options.dpi}`);
   if (typeof options.words === "string")
@@ -122,7 +122,7 @@ export async function recognize(
 
   if (typeof options.config === "object") {
     for (const [k, v] of Object.entries(options.config)) {
-      args.push(`-c ${k}=${v}`);
+      args.push(`-c`, `${k}=${v}`);
     }
   }
 
